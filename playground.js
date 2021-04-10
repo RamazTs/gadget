@@ -7,13 +7,38 @@
 // console.log('Now the value for FOO is:', process.env.FOO);
 
 const datefns = require("date-fns")
+//
+// const date = datefns.addHours(datefns.parse("5/3/2020", "dd/MM/yyyy", new Date()), 4)
+// console.log(date)
+//
+// const result = datefns.differenceInHours(
+//   new Date(2014, 6, 2, 19, 0),
+//   new Date(2014, 6, 2, 6, 50)
+// )
+//
+// console.log(result)
 
-const date = datefns.addHours(datefns.parse("5/3/2020", "dd/MM/yyyy", new Date()), 4)
-console.log(date)
+const ProjectIntervals = require("./models/ProjectInterval")
+const startOfWeek = datefns.startOfWeek(new Date)
 
-const result = datefns.differenceInHours(
-  new Date(2014, 6, 2, 19, 0),
-  new Date(2014, 6, 2, 6, 50)
+const getWeekDays = async () => (
+  await ProjectIntervals.aggregate([
+    {
+      $match:
+        {
+          createdAt: {
+            $gte:  datefns.startOfWeek(new Date),
+            $lt:  datefns.endOfWeek(new Date)
+          },
+        }
+    },
+    {
+      $project:
+        {
+          day: {$dayOfWeek: "$startDate"}
+        }
+    }
+  ]).exec()
 )
 
-console.log(result)
+getWeekDays().then(res => console.log(res))

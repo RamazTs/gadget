@@ -12,6 +12,7 @@ console.log(process.env.PORT)
 
 const taskRoutes = require("./routes/task")
 const userRoutes = require("./routes/user")
+const analyticsRouter = require("./routes/analytics")
 
 app.use(cors())
 app.use(bodyParser.json());
@@ -19,6 +20,7 @@ app.use(helmet())
 app.use(compression())
 app.use('/api', taskRoutes);
 app.use("/api", userRoutes)
+app.use("/api", analyticsRouter)
 
 mongoose
   .connect
