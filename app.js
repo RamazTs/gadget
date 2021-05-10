@@ -8,7 +8,6 @@ const cors = require('cors')
 const app = express();
 
 const PORT = process.env.PORT || 3000
-console.log(process.env.PORT)
 
 const taskRoutes = require("./routes/task")
 const userRoutes = require("./routes/user")

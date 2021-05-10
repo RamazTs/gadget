@@ -461,7 +461,7 @@ exports.createInterval = async (req, res) => {
     if (!projectId)
       return sendError(res, `${ERRORS.ERROR_FIELDS_MISSING}-projectId`)
 
-    const date = datefns.subDays(new Date, 2)
+    const date = datefns.subHours(new Date, 2)
 
     const newProjectInterval = await new ProjectInterval({
       _id: `PROJECT-INTERVAL-${uuidv4()}`,
