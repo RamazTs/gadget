@@ -466,7 +466,7 @@ exports.createInterval = async (req, res) => {
       status: ACTIVE,
       userId,
       projectId,
-      startedAt: date
+      startedAt: new Date
     }).save()
 
     res.status(200).send(newProjectInterval)
